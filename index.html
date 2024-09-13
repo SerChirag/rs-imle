@@ -24,8 +24,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Academic Project Page</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <title>RS-IMLE</title>
+  <link rel="icon" type="image/x-icon" href="static/images/logo.svg">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
 
@@ -52,21 +52,21 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">Rejection Sampling IMLE: Designing Priors for Better Few-Shot Image Synthesis</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <a href="https://serchirag.github.io/" target="_blank">Chirag Vashist</a>,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <a href="https://sites.google.com/view/niopeng/home" target="_blank">Shichong Peng</a>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
+                    <a href="https://www.sfu.ca/~keli/" target="_blank">Ke Li</a>
                   </span>
                   </div>
 
                   <div class="is-size-5 publication-authors">
-                    <span class="author-block">Institution Name<br>Conferance name and year</span>
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+                    <span class="author-block">Simon Fraser University<br>18th European Conference on Computer Vision (ECCV) 2024</span>
+                    <!-- <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span> -->
                   </div>
 
                   <div class="column has-text-centered">
@@ -127,13 +127,28 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
+      <span class="hero-span-body">
+        <video poster="" id="gcat-interpolate" autoplay muted loop height="50%">
+          <!-- Your video here -->
+          <source src="static/videos/gcat.mp4" type="video/mp4">
+        </video>
+        <video poster="" id="ffhq-interpolate" autoplay muted loop height="50%">
+          <!-- Your video here -->
+          <source src="static/videos/ffhq.mp4" type="video/mp4">
+        </video>
+
+        <video poster="" id="panda-interpolate" autoplay muted loop height="50%">
+          <!-- Your video here -->
+          <source src="static/videos/panda.mp4" type="video/mp4">
+        </video>
+        <!-- <video poster="" id="anime-interpolate" autoplay muted loop height="50%">
+          <source src="static/videos/anime.mp4" type="video/mp4">
+        </video> -->
+      </span>
+      <br>
+      <br>
       <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+        <b>TLDR:</b> Our method can generate high-quality images with only a few examples. Check out the video to see how we do it!
       </h2>
     </div>
   </div>
@@ -148,7 +163,11 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+            An emerging area of research aims to learn deep generative models with limited training data. 
+            Implicit Maximum Likelihood Estimation (IMLE), a recent technique, successfully addresses the mode collapse issue of GANs and has been adapted to the few-shot setting, achieving state-of-the-art performance. 
+            However, current IMLE-based approaches encounter challenges due to inadequate correspondence between the latent codes selected for training and those drawn during inference. 
+            This results in suboptimal test-time performance. We theoretically show a way to address this issue and propose RS-IMLE, a novel approach that changes the prior distribution used for training. 
+            This leads to substantially higher quality image generation compared to existing GAN and IMLE-based methods, as validated by comprehensive experiments conducted on nine few-shot image datasets.
           </p>
         </div>
       </div>

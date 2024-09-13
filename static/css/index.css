@@ -21,6 +21,12 @@ body {
 .teaser .hero-body {
   padding-top: 0;
   padding-bottom: 3rem;
+  justify-content: space-between;
+}
+
+.teaser .hero-body .hero-span-body{
+  display: flex;
+  justify-content: space-between;
 }
 
 .teaser {
