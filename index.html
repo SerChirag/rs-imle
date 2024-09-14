@@ -47,7 +47,7 @@
 <body>
 
 
-  <section class="hero">
+<section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
@@ -128,27 +128,31 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <span class="hero-span-body">
-        <video poster="" id="gcat-interpolate" autoplay muted loop height="50%">
+        <video poster="" id="gcat-interpolate" autoplay muted loop width="32%">
           <!-- Your video here -->
           <source src="static/videos/gcat.mp4" type="video/mp4">
         </video>
-        <video poster="" id="ffhq-interpolate" autoplay muted loop height="50%">
+        <video poster="" id="ffhq-interpolate" autoplay muted loop width="32%">
           <!-- Your video here -->
           <source src="static/videos/ffhq.mp4" type="video/mp4">
         </video>
 
-        <video poster="" id="panda-interpolate" autoplay muted loop height="50%">
+        <video poster="" id="panda-interpolate" autoplay muted loop width="32%">
           <!-- Your video here -->
           <source src="static/videos/panda.mp4" type="video/mp4">
         </video>
+        <!-- <video poster="" id="anime-interpolate" autoplay muted loop width="22%">
+          <source src="static/videos/anime.mp4" type="video/mp4">
+        </video> -->
         <!-- <video poster="" id="anime-interpolate" autoplay muted loop height="50%">
           <source src="static/videos/anime.mp4" type="video/mp4">
         </video> -->
       </span>
       <br>
       <br>
-      <h2 class="subtitle has-text-centered">
-        <b>TLDR:</b> Our method can generate high-quality images with only a few examples. Check out the video to see how we do it!
+      <h2 class="subtitle has-text-justified">
+        <b>TLDR:</b> We identity an issue with the current IMLE-based methods and propose a novel approach to address it.
+        We achieve <b><i>state-of-the-art performance</i></b> on few-shot image generation tasks.
       </h2>
     </div>
   </div>
@@ -194,6 +198,64 @@
 </section> -->
 <!-- End youtube video -->
 
+
+<section class="hero is-small"></section>
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Methodology</h2>
+          <div class="content has-text-justified">
+           We identity an issue
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <span class="hero-span-body">
+            <video poster="" id="imle-video" autoplay muted loop width="40%">
+              <source src="static/videos/imle_training.mp4" type="video/mp4">
+            </video>
+            <video poster="" id="rsimle-video" autoplay muted loop width="40%">
+              <source src="static/videos/rsimle_training-0.09.mp4" type="video/mp4">
+            </video>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified">
+            We can also analyze the latent space of model trained by the respective objectives.
+            Dots represent the points selected by the model <i>over the course of training</i>, with dots of the same colour belonging to the same data-point.
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container"></div>
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <span class="hero-span-body">
+            <video poster="" id="imle-latent-video" autoplay muted loop width="40%">
+              <source src="static/videos/imle_training_latent.mp4" type="video/mp4">
+            </video>
+            <video poster="" id="rsimle-latent-video" autoplay muted loop width="40%">
+              <source src="static/videos/rsimle_training_latent-0.09.mp4" type="video/mp4">
+            </video>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="hero is-small"></section>
   <div class="hero-body">
@@ -390,7 +452,7 @@
 
 
 <!-- Paper poster -->
-<section class="hero is-small">
+<!-- <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
       <h2 class="title">Poster</h2>
@@ -400,7 +462,7 @@
         
       </div>
     </div>
-  </section>
+  </section> -->
 <!--End paper poster -->
 
 
