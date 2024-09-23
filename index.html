@@ -47,6 +47,26 @@
 <body>
 
 
+<style>
+  .green-square {
+    width: 10px;  /* size of the square */
+    height: 10px;
+    background-color: green;
+  }
+</style>
+
+
+<style>
+  .orange-dot {
+    width: 10px;  /* diameter of the dot */
+    height: 10px;
+    background-color: orange;
+    border-radius: 50%;  /* makes it circular */
+  }
+</style>
+
+
+
 <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
@@ -198,6 +218,56 @@
 </section> -->
 <!-- End youtube video -->
 
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Motivation</h2>
+          <div class="content has-text-justified">
+            In the existing IMLE-based methods, we observe that the distributions of the latent codes used for training the objective differs from the distribution of latent encountered at test time. 
+            Consider an illustrative example where the latent space is two dimensional. 
+            We train a simple generative model using IMLE on two dimensional toy dataset. The latent codes used for training over the course of training are illustrated below.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="container">
+  <!-- Paper video. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <span class="hero-span-body" style="display: flex; justify-content: center;">
+        <div style="max-width: 40%;">
+          <img src="static/images/compare/latent_coloured-1950.png" width="80%">
+          <p class="text-description">Latent space of model trained by IMLE</p>
+        </div>
+        <div style="max-width: 40%;">
+          <img src="static/images/compare/normal.png" width="80%">
+          <p class="text-description">Latent codes sampled at inference</p>
+      </span>
+    </div>
+  </div>
+</div>
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified">
+            We notice that for the latent codes belonging to the same data point (denoted by the same colour) form well-separated tight bands in the latent space. We also observe that there are <b>large gaps</b> between these bands, indicating that these segments of the latent space are consistently overlooked during training. <br>
+            Since at test time we sample from the same standard normal distribution, these unsupervised segments in the latent space have arbitrary outputs, which result in bad samples.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    
+
 
 <section class="hero is-small"></section>
   <div class="hero-body">
@@ -205,23 +275,61 @@
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Methodology</h2>
-          <div class="content has-text-justified">
-           We identity an issue
+          <div class="content has-text-justified">            
+            In our approach, we propose to change the prior distribution used for training the model.
+            We design a prior such that all samples we obtain by using the prior are guaranteed to be <i>some</i> distance (&epsi;) away from all data points. <br>
+            Since we reject samples that are too close to the data points, we call our method Rejection Sampling IMLE (RS-IMLE). <br>
+            <b>Note:</b> 🟩 denotes data points and 🟠 denote samples from the model. <br>
+
           </div>
         </div>
       </div>
     </div>
+
+    <div class="container"></div>
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <span class="hero-span-body" style="display: flex; justify-content: center;">
+            <div style="max-width: 40%;">
+              <img src="static/images/compare/epoch-500.png" width="80%">
+              <p class="text-description">IMLE</p>
+            </div>
+            <div style="max-width: 40%;">
+              <img src="static/images/compare/improved-epoch-500.png" width="80%">
+              <p class="text-description">RS-IMLE</p>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified">
+            Our method ensures that the loss for each data point is always sufficiently high (indicated by the long arrows), resulting in meaningful updates to the model parameters. 
+            Here is a video of the training process of the models trained by IMLE and RS-IMLE.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <span class="hero-span-body">
-            <video poster="" id="imle-video" autoplay muted loop width="40%">
-              <source src="static/videos/imle_training.mp4" type="video/mp4">
-            </video>
-            <video poster="" id="rsimle-video" autoplay muted loop width="40%">
-              <source src="static/videos/rsimle_training-0.09.mp4" type="video/mp4">
-            </video>
+          <span class="hero-span-body" style="display: flex; justify-content: center;">
+            <div style="max-width: 40%;">
+              <video poster="" id="imle-video" autoplay muted loop width="90%">
+                <source src="static/videos/imle_training.mp4" type="video/mp4">
+              </video>
+              <p class="text-description">IMLE</p>
+            </div>
+            <div style="max-width: 40%;">
+              <video poster="" id="rsimle-video" autoplay muted loop width="90%">
+                <source src="static/videos/rsimle_training-0.09.mp4" type="video/mp4">
+              </video>
+              <p class="text-description">RS-IMLE</p>
           </span>
         </div>
       </div>
@@ -232,7 +340,7 @@
         <div class="column is-four-fifths">
           <div class="content has-text-justified">
             We can also analyze the latent space of model trained by the respective objectives.
-            Dots represent the points selected by the model <i>over the course of training</i>, with dots of the same colour belonging to the same data-point.
+            We observe that for our method over the course of training, samples latent codes that follow the distribution at test time more faithfully.
           </div>
         </div>
       </div>
@@ -243,13 +351,19 @@
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <span class="hero-span-body">
-            <video poster="" id="imle-latent-video" autoplay muted loop width="40%">
-              <source src="static/videos/imle_training_latent.mp4" type="video/mp4">
-            </video>
-            <video poster="" id="rsimle-latent-video" autoplay muted loop width="40%">
-              <source src="static/videos/rsimle_training_latent-0.09.mp4" type="video/mp4">
-            </video>
+          <span class="hero-span-body" style="display: flex; justify-content: center;">
+            <div style="max-width: 40%;">
+              <video poster="" id="imle-latent-video" autoplay muted loop width="90%">
+                <source src="static/videos/imle_training_latent.mp4" type="video/mp4">
+              </video>
+              <p class="text-description">Latent space of IMLE</p>
+            </div>
+            <div style="max-width: 40%;">
+              <video poster="" id="rsimle-latent-video" autoplay muted loop width="90%">
+                <source src="static/videos/rsimle_training_latent-0.09.mp4" type="video/mp4">
+              </video>
+              <p class="text-description">Latent space of RS-IMLE</p>
+            </div>
           </span>
         </div>
       </div>
@@ -270,6 +384,7 @@
               We present the FID scores computed for all the datasets across different methods. Lower FID scores indicates that the distribution of generated images is closer to the distribution of real images. 
               <br>
               Our method performs significantly better compared to baselines. We report an average improvement of <b>45.9%</b> over the best baseline.
+
               <br>
               <br>
             </p>
@@ -390,12 +505,15 @@
 
           <div class="content has-text-justified">
             <p>
-              First column is the query image from the dataset. <br>
-              
-              Subsequent columns are the samples produced by different methods that are closest to the query image in LPIPS feature space. <br> 
-              
-              The samples produced by our method are closer to the query images compared to the baselines, while being sufficiently diverse.
+              First column is the query image from the dataset.
+              Subsequent columns are the samples produced by different methods that are closest to the query image in LPIPS feature space. <br>    
+              Note that the samples from our method are:           
             </p>
+            <ol>
+              <li>Realistic (indicating high precision)</li>
+              <li>Closer to the query (indicating high recall)</li>
+              <li>Diverse (indicating that the model is not overfitting)</li>
+            </ol> 
           </div>
         </div>
       </div>
