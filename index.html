@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta name="description" content="Rejection Sampling IMLE">
+  <meta property="og:title" content="RS_IMLE"/>
+  <meta property="og:description" content="RS-IMLE"/>
   <meta property="og:url" content="URL OF THE WEBSITE"/>
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
   <meta property="og:image" content="static/image/your_banner_image.png" />
@@ -14,8 +14,8 @@
   <meta property="og:image:height" content="630"/>
 
 
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:title" content="RS-IMLE">
+  <meta name="twitter:description" content="Rejection Sampling IMLE">
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
   <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -93,7 +93,7 @@
                     <div class="publication-links">
                          <!-- Arxiv PDF link -->
                       <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        <a href="https://1sfu-my.sharepoint.com/:b:/g/personal/cva19_sfu_ca/EWEEr-msVVBKn2t0sABWfAIBvzXbo9nQCD3b4ylxDcNvBw?e=FPcSfq" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -223,7 +223,115 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">Motivation</h2>
+          <h2 class="title is-3">Why is Few-Shot Generation Challenging?</h2>
+          <div class="content has-text-justified">
+            Generative models that perform well in the large-scale setting, do not perform well in the few-shot setting. 
+          </div>
+          <h3 class="title is-4" style="text-align: left;">Diffusion models</h3>
+          <div class="content has-text-justified">
+            In diffusion models, the marginal likelihood under the forward process is a mixture of isotropic Gaussians. This modeling assumption smooths out the learned manifold along all directions, including those that are orthogonal to the actual data manifold.
+            This becomes particularly problematic when there are a limited number of training examples. <br>
+            Suppose we have a dataset of 10K examples. We can train a diffusion model on this dataset and sample from it. 
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <span class="hero-span-body" style="display: flex; justify-content: center;">
+          <div style="max-width: 40%;">
+            <img src="static/videos/diffusion/infi_10000.png" width="80%">
+            <p class="text-description">Dataset with 10K points</p>
+          </div>
+          <div style="max-width: 40%;">
+            <video poster="" id="rsimle-video" autoplay muted controls loop width="80%">
+              <source src="static/videos/diffusion/sine_generation_10000.mp4" type="video/mp4">
+            </video>
+            <p class="text-description">Denoising process for 10K data points</p>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <div class="content has-text-justified">
+              Consider what happens when we have the same shape but with just 20 data points. Now we train the <i><b>same diffusion model</b></i> on this dataset. <br>
+              The performance of diffusion models degrades significantly in the few-shot setting. The model is not be able to learn the data manifold and generates samples that are far from the data manifold.
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <div class="container">
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <span class="hero-span-body" style="display: flex; justify-content: center;">
+          <div style="max-width: 40%;">
+            <img src="static/videos/diffusion/infi_20.png" width="80%">
+            <p class="text-description">Dataset with 20 points</p>
+          </div>
+          <div style="max-width: 40%;">
+            <video poster="" id="rsimle-video" autoplay muted loop controls width="80%">
+              <source src="static/videos/diffusion/sine_generation_20.mp4" type="video/mp4">
+            </video>
+            <p class="text-description">Denoising process for 20 data points</p>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h3 class="title is-4" style="text-align: left;">Generative Adversarial Network</h3>
+            <div class="content has-text-justified">
+              GANs suffer from mode collapse and training instability. When mode collapse occurs, the modelled distribution only covers a subset of the modes. <br>
+              Implicit Maximum Likelihood Estimation is an alternative to the GAN objective and has shown promising results in addressing mode collapse.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <span class="hero-span-body" style="display: flex; justify-content: center;">
+            <div style="max-width: 40%;">
+              <video poster="" id="imle-video" autoplay muted controls loop width="90%">
+                <source src="static/videos/gan.mp4" type="video/mp4">
+              </video>
+              <p class="text-description">GAN training: mode collapse</p>
+            </div>
+            <div style="max-width: 40%;">
+              <video poster="" id="rsimle-video" autoplay muted controls loop width="90%">
+                <source src="static/videos/imle_training.mp4" type="video/mp4">
+              </video>
+              <p class="text-description">IMLE training</p>
+          </span>
+        </div>
+      </div>
+    </div>
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">The Misalignment Issue</h2>
           <div class="content has-text-justified">
             In the existing IMLE-based methods, we observe that the distributions of the latent codes used for training the objective differs from the distribution of latent encountered at test time. 
             Consider an illustrative example where the latent space is two dimensional. 
@@ -320,13 +428,13 @@
         <div class="column is-four-fifths">
           <span class="hero-span-body" style="display: flex; justify-content: center;">
             <div style="max-width: 40%;">
-              <video poster="" id="imle-video" autoplay muted loop width="90%">
+              <video poster="" id="imle-video" autoplay muted controls loop width="90%">
                 <source src="static/videos/imle_training.mp4" type="video/mp4">
               </video>
               <p class="text-description">IMLE</p>
             </div>
             <div style="max-width: 40%;">
-              <video poster="" id="rsimle-video" autoplay muted loop width="90%">
+              <video poster="" id="rsimle-video" autoplay muted controls loop width="90%">
                 <source src="static/videos/rsimle_training-0.09.mp4" type="video/mp4">
               </video>
               <p class="text-description">RS-IMLE</p>
