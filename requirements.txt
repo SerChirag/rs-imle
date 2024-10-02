@@ -1,0 +1,11 @@
+scipy==1.11.1
+clean_fid==0.1.35
+comet_ml
+imageio==2.9.0
+numpy
+pandas
+torch
+scikit_learn
+torchvision
+tqdm==4.64.0
+wandb
