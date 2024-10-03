@@ -24,12 +24,11 @@ pip install -i https://test.pypi.org/simple/ dciknn-cuda==0.1.15
 
 ## Citation
 
-    @misc{vashist2024rejectionsamplingimledesigning,
-          title={Rejection Sampling IMLE: Designing Priors for Better Few-Shot Image Synthesis}, 
-          author={Chirag Vashist and Shichong Peng and Ke Li},
-          year={2024},
-          eprint={2409.17439},
-          archivePrefix={arXiv},
-          primaryClass={cs.CV},
-          url={https://arxiv.org/abs/2409.17439}, 
+
+    @inproceedings{vashist2024rejectionsamplingimledesigning,
+    	title = {Rejection Sampling IMLE: Designing Priors for Better Few-Shot Image Synthesis},
+    	author = {Chirag Vashist and Shichong Peng and Ke Li},
+    	booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+    	year = {2024}
     }
+
