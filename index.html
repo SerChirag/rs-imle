@@ -221,7 +221,7 @@
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Why is Few-Shot Generation Challenging?</h2>
           <div class="content has-text-justified">
             Generative models that perform well in the large-scale setting, do not perform well in the few-shot setting. 
@@ -231,15 +231,17 @@
             In diffusion models, the marginal likelihood under the forward process is a mixture of isotropic Gaussians. This modeling assumption smooths out the learned manifold along all directions, including those that are orthogonal to the actual data manifold.
             This becomes particularly problematic when there are a limited number of training examples. <br>
             Suppose we have a dataset of 10K examples. We can train a diffusion model on this dataset and sample from it. 
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <div class="container">
     <!-- Paper video. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column">
         <span class="hero-span-body" style="display: flex; justify-content: center;">
           <div style="max-width: 40%;">
             <img src="static/videos/diffusion/infi_10000.png" width="80%">
@@ -259,7 +261,7 @@
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
+          <div class="column">
             <div class="content has-text-justified">
               Consider what happens when we have the same shape but with just 20 data points. Now we train the <i><b>same diffusion model</b></i> on this dataset. <br>
               The performance of diffusion models degrades significantly in the few-shot setting. The model is not be able to learn the data manifold and generates samples that are far from the data manifold.
@@ -273,7 +275,7 @@
   <div class="container">
     <!-- Paper video. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column">
         <span class="hero-span-body" style="display: flex; justify-content: center;">
           <div style="max-width: 40%;">
             <img src="static/videos/diffusion/infi_20.png" width="80%">
@@ -293,7 +295,7 @@
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
+          <div class="column">
             <h3 class="title is-4" style="text-align: left;">Generative Adversarial Network</h3>
             <div class="content has-text-justified">
               GANs suffer from mode collapse and training instability. When mode collapse occurs, the modelled distribution only covers a subset of the modes. <br>
@@ -307,7 +309,7 @@
     <div class="container">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <span class="hero-span-body" style="display: flex; justify-content: center;">
             <div style="max-width: 40%;">
               <video poster="" id="imle-video" autoplay muted controls loop width="80%">
@@ -329,7 +331,7 @@
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">The Misalignment Issue</h2>
           <div class="content has-text-justified">
             In the existing IMLE-based methods, we observe that the distributions of the latent codes used for training the objective differs from the distribution of latent encountered at test time. 
@@ -344,15 +346,16 @@
 <div class="container">
   <!-- Paper video. -->
   <div class="columns is-centered has-text-centered">
-    <div class="column is-four-fifths">
+    <div class="column">
       <span class="hero-span-body" style="display: flex; justify-content: center;">
         <div style="max-width: 40%;">
           <img src="static/images/compare/latent_coloured-1950.png" width="80%">
-          <p class="text-description">Latent space of model trained by IMLE</p>
+          <p class="text-description">Latent codes selected by IMLE objective during training</p>
         </div>
         <div style="max-width: 40%;">
           <img src="static/images/compare/normal.png" width="80%">
-          <p class="text-description">Latent codes sampled at inference</p>
+          <p class="text-description">Latent codes sampled at test time
+          </p>
       </span>
     </div>
   </div>
@@ -362,7 +365,7 @@
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <div class="content has-text-justified">
             We notice that for the latent codes belonging to the same data point (denoted by the same colour) form well-separated tight bands in the latent space. We also observe that there are <b>large gaps</b> between these bands, indicating that these segments of the latent space are consistently overlooked during training. <br>
             Since at test time we sample from the same standard normal distribution, these unsupervised segments in the latent space have arbitrary outputs, which result in bad samples.
@@ -379,7 +382,7 @@
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Methodology</h2>
           <div class="content has-text-justified">            
             In our approach, we propose to change the prior distribution used for training the model.
@@ -395,7 +398,7 @@
     <div class="container"></div>
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <span class="hero-span-body" style="display: flex; justify-content: center;">
             <div style="max-width: 40%;">
               <img src="static/images/compare/epoch-500.png" width="80%">
@@ -411,7 +414,7 @@
 
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <div class="content has-text-justified">
             Our method ensures that the loss for each data point is always sufficiently high (indicated by the long arrows), resulting in meaningful updates to the model parameters. 
             Here is a video of the training process of the models trained by IMLE and RS-IMLE.
@@ -423,7 +426,7 @@
     <div class="container">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <span class="hero-span-body" style="display: flex; justify-content: center;">
             <div style="max-width: 40%;">
               <video poster="" id="imle-video" autoplay muted controls loop width="80%">
@@ -443,7 +446,7 @@
 
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <div class="content has-text-justified">
             We can also analyze the latent space of model trained by the respective objectives.
             We observe that for our method over the course of training, samples latent codes that follow the distribution at test time more faithfully.
@@ -456,19 +459,19 @@
     <div class="container"></div>
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <span class="hero-span-body" style="display: flex; justify-content: center;">
             <div style="max-width: 40%;">
               <video poster="" id="imle-latent-video" autoplay muted loop width="90%">
                 <source src="static/videos/imle_training_latent.mp4" type="video/mp4">
               </video>
-              <p class="text-description">Latent space of IMLE</p>
+              <p class="text-description">Latent codes selected by IMLE objective during training</p>
             </div>
             <div style="max-width: 40%;">
               <video poster="" id="rsimle-latent-video" autoplay muted loop width="90%">
                 <source src="static/videos/rsimle_training_latent-0.09.mp4" type="video/mp4">
               </video>
-              <p class="text-description">Latent space of RS-IMLE</p>
+              <p class="text-description">Latent codes selected by RS-IMLE objective during training</p>
             </div>
           </span>
         </div>
@@ -483,7 +486,7 @@
       <!-- Paper video. -->
       
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Frechet Inception Distance</h2>
           <div class="content has-text-justified">
             <p>
@@ -606,7 +609,7 @@
     <div class="container is-max-desktop">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Visual Recall Test</h2>
 
           <div class="content has-text-justified">
@@ -662,7 +665,7 @@
     <div class="container is-max-desktop">
       <!-- Paper video. -->
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <div class="content has-text-justified">
             <p>
               You can find more examples in the main paper and the supplementary material.
@@ -678,7 +681,7 @@
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Video Presentation</h2>
           <div class="publication-video">
             <!-- Youtube embed code here -->
