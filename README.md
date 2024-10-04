@@ -22,17 +22,17 @@ pip install -r requirements.txt
 pip install -i https://test.pypi.org/simple/ dciknn-cuda==0.1.15
 ```
 
+## Datasets
+
+The datasets can be downloaded from [here](https://1sfu-my.sharepoint.com/:u:/g/personal/cva19_sfu_ca/EZMNRyTlTyRJq3dCM47SKbUBCj6dsnzfAQQdtNp0TmH9QQ?e=wHiSq7)
+
 ## Instructions
-
-
 
 In order to train on FFHQ, you can run the following script:
 
 ```bash
 ./train.sh
 ```
-
-
 
 ## Citation
 
