@@ -94,12 +94,9 @@ def add_imle_arguments(parser):
     parser.add_argument('--lpips_coef', type=float, default=1.0)  # lpips loss coefficient
     parser.add_argument('--l2_coef', type=float, default=0.1)  # l2 loss coefficient
     parser.add_argument('--force_factor', type=float, default=1.5)  # sampling factor for imle, i.e., force_factor * len(dataset)
-    parser.add_argument('--change_coef', type=float, default=0.04)  # \gamma in the paper, rate of change of the thresholds, tau_i
-    parser.add_argument('--change_threshold', type=float, default=1)  # starting threshold
+
     parser.add_argument('--n_mpl', type=int, default=8)  # mapping network layers
-    parser.add_argument('--latent_lr', type=float, default=0.0001)  # learning rate for optimizing latent codes -- not used
-    parser.add_argument('--latent_decay', type=float, default=0.0)  # learning rate decay for optimizing latent codes -- not used
-    parser.add_argument('--latent_epoch', type=int, default=0)  # number of epochs for optimizing latent codes -- not used
+
     parser.add_argument('--reconstruct_iter_num', type=int, default=100000)  # number of iterations for reconstructing images using backtracking
     parser.add_argument('--imle_force_resample', type=int, default=30)  # number of iterations to wait before ignoringthe threshold and resample anyway
     parser.add_argument('--snoise_factor', type=int, default=8)  # spatial noise factor
@@ -110,43 +107,36 @@ def add_imle_arguments(parser):
     parser.add_argument('--num_images_to_generate', type=int, default=100)
     parser.add_argument('--mode', type=str, default='train')  # mode of running, train, eval, reconstruct, generate
     
-    parser.add_argument('--use_adaptive', default=True, type=lambda x: bool(strtobool(x)))  # whether to use adaptive imle
-
-    parser.add_argument('--angle', type=float, default=0.0)  # angle to splatter
-    parser.add_argument('--use_splatter', default=False, type=lambda x: bool(strtobool(x)))  # whether to use splatter
-    
-    parser.add_argument('--use_gaussian', default=False, type=lambda x: bool(strtobool(x)))  # whether to use splatter
-    parser.add_argument('--gaussian_std', type=float, default=0.1)  # gaussian std
-    # parser.add_argument('--mode', type=str, default='lpips', choices=['lpips', 'l2', 'combined']) # search type for nearest neighbour search
-
-    # parser.add_argument('--use_splatter_snoise', default=False, type=lambda x: bool(strtobool(x)))  # whether to use splatter snoise
-
     parser.add_argument('--use_snoise', default=False, type=lambda x: bool(strtobool(x)))  # whether to use spatial noise
-
     parser.add_argument('--search_type', type=str, default='lpips', choices=['lpips', 'l2', 'combined']) # search type for nearest neighbour search
     parser.add_argument('--l2_search_downsample', type=float, default=1.0) # downsample factor for l2 search
 
-    parser.add_argument('--use_angular_resample', default=False, type=lambda x: bool(strtobool(x)))  # whether to use spatial noise
-    parser.add_argument('--use_eps_ignore', default=False, type=lambda x: bool(strtobool(x)))  # whether to use spatial noise
-    # parser.add_argument('--use_eps_ignore_advanced', default=False, type=lambda x: bool(strtobool(x)))  # whether to use spatial noise
-    parser.add_argument('--randomness_angular', type=float, default=0.0)  # whether to use splatter
-
-
+    # RSIMLE specific arguments
+    parser.add_argument('--use_rsimle', default=False, type=lambda x: bool(strtobool(x)))  # whether to use spatial noise
     parser.add_argument('--eps_radius', type=float, default=0.1)  # angle to splatter
     parser.add_argument('--knn_ignore', type=int, default=5)  # whether to use spatial noise
 
-    parser.add_argument('--max_sample_angle', type=float, default=180.0)  # max angle used for sampling
-    parser.add_argument('--min_sample_angle', type=float, default=0.0)  # min angle used for sampling
+    # AdaIMLE specific arguments
+    parser.add_argument('--use_adaptive', default=True, type=lambda x: bool(strtobool(x)))  # whether to use adaptive imle
+    parser.add_argument('--change_coef', type=float, default=0.04)  # \gamma in the AdaIMLE paper, rate of change of the thresholds, tau_i
+    parser.add_argument('--change_threshold', type=float, default=1)  # starting threshold
 
+    # wandb
     parser.add_argument('--wandb_name', type=str, default='AdaptiveIMLE')  # used for wandb
     parser.add_argument('--wandb_project', type=str, default='AdaptiveIMLE')  # used for wandb
     parser.add_argument('--use_wandb', type=int, default=0)
     parser.add_argument('--wandb_mode', type=str, default='online')
 
+    # comet.ml
     parser.add_argument('--use_comet', default=False, type=lambda x: bool(strtobool(x)))
     parser.add_argument('--comet_name', type=str, default='AdaptiveIMLE')  # used in comet.ml
     parser.add_argument('--comet_api_key', type=str, default='')  # comet.ml api key -- leave blank to disable comet.ml
     parser.add_argument('--comet_experiment_key', type=str, default='')
+
+
+    parser.add_argument('--latent_lr', type=float, default=0.0001)  # learning rate for optimizing latent codes -- not used
+    parser.add_argument('--latent_decay', type=float, default=0.0)  # learning rate decay for optimizing latent codes -- not used
+    parser.add_argument('--latent_epoch', type=int, default=0)  # number of epochs for optimizing latent codes -- not used
 
     # some metric args
     parser.add_argument("--space", choices=["z", "w"], help="space that PPL calculated with")

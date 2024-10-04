@@ -12,7 +12,6 @@ from dciknn_cuda import DCI, MDCI
 from torch.optim import AdamW
 from helpers.utils import ZippedDataset
 from models import parse_layer_string
-from helpers.angle_sampler import Angle_Generator
 
 class Sampler:
     def __init__(self, H, sz, preprocess_fn):
@@ -106,11 +105,6 @@ class Sampler:
 
         self.knn_ignore = H.knn_ignore
         self.ignore_radius = H.ignore_radius
-        self.resample_angle = H.resample_angle
-
-        self.angle_generator = Angle_Generator(self.H.latent_dim)
-        self.max_sample_angle_rad = H.max_sample_angle_rad
-        self.min_sample_angle_rad = H.min_sample_angle_rad
 
         self.total_excluded = 0
         self.total_excluded_percentage = 0
@@ -232,18 +226,10 @@ class Sampler:
 
         if use_mean:       
             l2_loss = torch.mean(self.l2_loss(inp, tar), dim=[1, 2, 3])
-            # bool_mask = l2_loss < self.H.eps_radius
-            # print(bool_mask)
-            # if(self.H.use_eps_ignore and self.H.use_eps_ignore_advanced):
-            #     l2_loss[bool_mask] = 0.0
             res = 0
         
             for i, g_feat in enumerate(inp_feat):
                 lpips_feature_loss = (g_feat - tar_feat[i]) ** 2
-
-                # if(self.H.use_eps_ignore and self.H.use_eps_ignore_advanced):
-                #     lpips_feature_loss[bool_mask] = 0.0
-
                 res += torch.sum(lpips_feature_loss, dim=1) / (inp_shape[i] ** 2)
 
             loss = self.H.lpips_coef * res.mean() + self.H.l2_coef * l2_loss.mean()
@@ -395,33 +381,7 @@ class Sampler:
                                                                                             self.selected_dists.mean(),
                                                                                             changed, (changed / len(
                 dataset)) * 100))
-        
-    def sample_angle(self, pool_slice):
 
-        # indices = np.random.randint(0, self.dataset_size, size=pool_slice.shape[0])
-        indices = np.arange(self.db_iter, self.db_iter + pool_slice.shape[0]) % self.dataset_size
-        self.db_iter = (self.db_iter + pool_slice.shape[0]) % self.dataset_size
-
-        random_z = self.selected_latents[indices]
-        
-        normalized_z = F.normalize(random_z, dim=1, p=2) 
-
-        b = F.normalize(pool_slice, dim=1, p=2)
-        norms = torch.norm(pool_slice,dim=1,p=2)
-
-        w = b - torch.unsqueeze(torch.einsum('ij,ij->i',b,normalized_z),-1) * normalized_z
-        w = F.normalize(w,p=2,dim=-1)
-        
-        angle_sampled = torch.from_numpy(self.angle_generator.return_samples(N=pool_slice.shape[0], 
-                                                            angle_low=self.min_sample_angle_rad, 
-                                                            angle_high=self.max_sample_angle_rad)) 
-        
-        angle_sampled = torch.unsqueeze(angle_sampled,-1)
-
-        new_z = torch.cos(angle_sampled) * normalized_z + torch.sin(angle_sampled) * w
-        new_z = new_z * norms.view(-1, 1)
-        return new_z
-        
     def resample_pool(self, gen, ds):
         # self.init_projection(ds)
         self.pool_latents.normal_()
@@ -431,12 +391,7 @@ class Sampler:
 
         for j in range(self.pool_size // self.H.imle_batch):
             batch_slice = slice(j * self.H.imle_batch, (j + 1) * self.H.imle_batch)
-
-            if(self.H.use_angular_resample):
-                cur_latents = self.sample_angle(self.pool_latents[batch_slice])
-            
-            else:
-                cur_latents = self.pool_latents[batch_slice]
+            cur_latents = self.pool_latents[batch_slice]
 
             cur_snosie = [s[batch_slice] for s in self.snoise_pool]
             with torch.no_grad():
@@ -468,7 +423,7 @@ class Sampler:
 
         total_rejected = 0
 
-        if(self.H.use_eps_ignore):
+        if(self.H.use_rsimle):
             with torch.no_grad():
                 for i in range(self.pool_size // self.H.imle_db_size):
                     pool_slice = slice(i * self.H.imle_db_size, (i + 1) * self.H.imle_db_size)
