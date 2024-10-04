@@ -64,8 +64,7 @@ def add_imle_arguments(parser):
     parser.add_argument('--lr_decay_rate', type=float, default=0.25)  # number of iterations for warmup for scheduler
 
 
-    parser.add_argument('--lr', type=float, default=0.00015)  # learning rate
-    parser.add_argument('--lr2', type=float, default=0.00005)  # learning rate
+    parser.add_argument('--lr', type=float, default=0.0002)  # learning rate
 
     parser.add_argument('--wd', type=float, default=0.00)  # weight decay
     parser.add_argument('--num_epochs', type=int, default=10000)  # number of epochs
@@ -73,17 +72,16 @@ def add_imle_arguments(parser):
     parser.add_argument('--adam_beta1', type=float, default=0.9)
     parser.add_argument('--adam_beta2', type=float, default=0.9)
 
-    parser.add_argument('--iters_per_ckpt', type=int, default=5000)  # number of iterations per checkpoint
+    parser.add_argument('--iters_per_ckpt', type=int, default=100000)  # number of iterations per checkpoint
     parser.add_argument('--iters_per_save', type=int, default=1000)  # number of iterations per saving the latest models
-    parser.add_argument('--iters_per_images', type=int, default=1000)  # number of iterations per sample save
-    parser.add_argument('--num_images_visualize', type=int, default=8)  # number of images to visualize
-    parser.add_argument('--num_rows_visualize', type=int, default=3)  # number of rows to visualize, e.g. 3 means 3x8=24 images
+    parser.add_argument('--iters_per_images', type=int, default=5000)  # number of iterations per sample save
+    parser.add_argument('--num_images_visualize', type=int, default=10)  # number of images to visualize
+    parser.add_argument('--num_rows_visualize', type=int, default=5)  # number of rows to visualize, e.g. 3 means 3x8=24 images
 
     parser.add_argument('--num_comp_indices', type=int, default=2)  # dci number of components
     parser.add_argument('--num_simp_indices', type=int, default=7)  # dci number of simplices
     parser.add_argument('--imle_db_size', type=int, default=1024)  # imle database size
     parser.add_argument('--imle_factor', type=float, default=0.)  # imle soft-sampling factor -- not used in the paper
-    parser.add_argument('--imle_staleness', type=int, default=7)  # imle staleness, i.e., number of iterations to wait before considering the thresholds, tau_i
     parser.add_argument('--imle_batch', type=int, default=16)  # imle batch size used for sampling
     parser.add_argument('--subset_len', type=int, default=-1)  # subset length for training -- random subset of the dataset. -1 means full dataset
     parser.add_argument('--latent_dim', type=int, default=1024)  # latent code dimension
@@ -93,7 +91,7 @@ def add_imle_arguments(parser):
     parser.add_argument('--proj_proportion', type=int, default=1)  # whether to use projection proportional to the lpips feature dimensions for nearest neighbour search
     parser.add_argument('--lpips_coef', type=float, default=1.0)  # lpips loss coefficient
     parser.add_argument('--l2_coef', type=float, default=0.1)  # l2 loss coefficient
-    parser.add_argument('--force_factor', type=float, default=1.5)  # sampling factor for imle, i.e., force_factor * len(dataset)
+    parser.add_argument('--force_factor', type=float, default=10)  # sampling factor for imle, i.e., force_factor * len(dataset)
 
     parser.add_argument('--n_mpl', type=int, default=8)  # mapping network layers
 
@@ -108,7 +106,7 @@ def add_imle_arguments(parser):
     parser.add_argument('--mode', type=str, default='train')  # mode of running, train, eval, reconstruct, generate
     
     parser.add_argument('--use_snoise', default=False, type=lambda x: bool(strtobool(x)))  # whether to use spatial noise
-    parser.add_argument('--search_type', type=str, default='lpips', choices=['lpips', 'l2', 'combined']) # search type for nearest neighbour search
+    parser.add_argument('--search_type', type=str, default='l2', choices=['lpips', 'l2', 'combined']) # search type for nearest neighbour search
     parser.add_argument('--l2_search_downsample', type=float, default=1.0) # downsample factor for l2 search
 
     # RSIMLE specific arguments
@@ -120,6 +118,8 @@ def add_imle_arguments(parser):
     parser.add_argument('--use_adaptive', default=True, type=lambda x: bool(strtobool(x)))  # whether to use adaptive imle
     parser.add_argument('--change_coef', type=float, default=0.04)  # \gamma in the AdaIMLE paper, rate of change of the thresholds, tau_i
     parser.add_argument('--change_threshold', type=float, default=1)  # starting threshold
+    parser.add_argument('--imle_staleness', type=int, default=7)  # imle staleness, i.e., number of iterations to wait before considering the thresholds, tau_i
+
 
     # wandb
     parser.add_argument('--wandb_name', type=str, default='AdaptiveIMLE')  # used for wandb
@@ -149,5 +149,5 @@ def add_imle_arguments(parser):
     parser.add_argument("--step", type=float, default=0.1, help="step size for interpolation")
     parser.add_argument('--ppl_save_name', type=str, default='ppl')
     parser.add_argument("--fid_factor", type=int, default=5, help="number of the samples for calculating FID")
-    parser.add_argument("--fid_freq", type=int, default=500, help="frequency of calculating fid")
+    parser.add_argument("--fid_freq", type=int, default=100, help="frequency of calculating fid")
     return parser

@@ -22,6 +22,18 @@ pip install -r requirements.txt
 pip install -i https://test.pypi.org/simple/ dciknn-cuda==0.1.15
 ```
 
+## Instructions
+
+
+
+In order to train on FFHQ, you can run the following script:
+
+```bash
+./train.sh
+```
+
+
+
 ## Citation
 
 

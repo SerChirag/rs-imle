@@ -87,11 +87,6 @@ def train_loop_imle(H, data_train, data_valid, preprocess_fn, imle, ema_imle, lo
 
         while (epoch < H.num_epochs):
             
-            # if(epoch > 1 and optimizer.param_groups[0]['lr'] != H.lr2):
-            #     for param_group in optimizer.param_groups:
-            #         param_group['lr'] = H.lr2
-            #     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=linear_warmup(H.warmup_iters))
-
             epoch += 1
             last_updated[:] = last_updated + 1
 
